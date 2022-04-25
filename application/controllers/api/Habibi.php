@@ -28,6 +28,7 @@ class Habibi extends CI_Controller
         $this->methods['index_delete']['limit'] = 1000; // 500 requests per hour per user/key
     }
 
+
     //TAMBAH DATA
     public function index_post()
     {
@@ -37,29 +38,38 @@ class Habibi extends CI_Controller
         $alamat = htmlspecialchars($this->post('alamat'));
         $email = htmlspecialchars($this->post('surel'));
 
-        if ($nik === '' or $nama === '' or $alamat === '' or $email === '') {
+        $ceknik = $this->User_model->getUser($nik);
+
+        if ($ceknik > 0) {
             $this->response([
                 'status' => false,
-                'message' => 'Incomplete data'
+                'message' => 'NIK Sudah terdaftar'
             ], 400);
         } else {
-            $data = [
-                'nik' => $nik,
-                'nama' => $nama,
-                'alamat' => $alamat,
-                'email' => $email
-            ];
-
-            if ($this->User_model->createUser($data) > 0) {
-                $this->response([
-                    'status' => true,
-                    'message' => 'Register Success'
-                ], 201);
-            } else {
+            if ($nik === '' or $nama === '' or $alamat === '' or $email === '') {
                 $this->response([
                     'status' => false,
-                    'message' => 'Failed to added'
+                    'message' => 'Incomplete data'
                 ], 400);
+            } else {
+                $data = [
+                    'nik' => $nik,
+                    'nama' => $nama,
+                    'alamat' => $alamat,
+                    'email' => $email
+                ];
+
+                if ($this->User_model->createUser($data) > 0) {
+                    $this->response([
+                        'status' => true,
+                        'message' => 'Sukses Terdaftar'
+                    ], 201);
+                } else {
+                    $this->response([
+                        'status' => false,
+                        'message' => 'Failed to added'
+                    ], 400);
+                }
             }
         }
     }

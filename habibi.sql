@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2022 at 05:31 AM
+-- Generation Time: Apr 25, 2022 at 07:40 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -93,7 +93,6 @@ CREATE TABLE `logs` (
 --
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
   `nik` bigint(20) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `alamat` varchar(100) NOT NULL,
@@ -132,7 +131,7 @@ ALTER TABLE `logs`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`nik`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -161,12 +160,6 @@ ALTER TABLE `limits`
 --
 ALTER TABLE `logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
