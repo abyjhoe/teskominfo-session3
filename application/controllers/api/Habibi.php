@@ -42,14 +42,14 @@ class Habibi extends CI_Controller
 
         if ($ceknik > 0) {
             $this->response([
-                'status' => false,
+                'error' => true,
                 'message' => 'NIK Sudah terdaftar'
             ], 400);
         } else {
             if ($nik === '' or $nama === '' or $alamat === '' or $email === '') {
                 $this->response([
-                    'status' => false,
-                    'message' => 'Incomplete data'
+                    'error' => true,
+                    'message' => 'Data Tidak Lengkap'
                 ], 400);
             } else {
                 $data = [
@@ -61,12 +61,12 @@ class Habibi extends CI_Controller
 
                 if ($this->User_model->createUser($data) > 0) {
                     $this->response([
-                        'status' => true,
+                        'error' => false,
                         'message' => 'Sukses Terdaftar'
                     ], 201);
                 } else {
                     $this->response([
-                        'status' => false,
+                        'error' => true,
                         'message' => 'Failed to added'
                     ], 400);
                 }
